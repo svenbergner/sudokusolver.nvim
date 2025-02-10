@@ -6,10 +6,10 @@ local function is_valid(sudoku, row, col, num)
       return false
     end
   end
-  local start_row = row - (row - 1) % 3
-  local start_col = col - (col - 1) % 3
-  for i = 0, 2 do
-    for j = 0, 2 do
+  local start_row = row - row % 3
+  local start_col = col - col % 3
+  for i = 1, 3 do
+    for j = 1, 3 do
       if sudoku[i + start_row][j + start_col] == num then
         return false
       end
