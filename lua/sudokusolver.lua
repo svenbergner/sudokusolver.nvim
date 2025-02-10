@@ -39,11 +39,9 @@ local function solve(sudoku)
   return true, sudoku
 end
 
-M.start_sudokusolver = function(opts)
-  opts = opts or {}
-  opts.bufnr = opts.bufnr or vim.api.nvim_get_current_buf()
-
-  local lines = vim.api.nvim_buf_get_lines(opts.bufnr, 0, 9, true)
+M.start_sudokusolver = function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, 9, true)
   local sudoku = {}
   for i, line in ipairs(lines) do
     sudoku[i] = {}
@@ -56,11 +54,11 @@ M.start_sudokusolver = function(opts)
   for _, row in ipairs(solved_sudoku) do
     table.insert(solved_lines, table.concat(row, " "))
   end
-  vim.api.nvim_buf_set_lines(opts.bufnr, 0, 9, true, solved_lines)
+  vim.api.nvim_buf_set_lines(bufnr, 0, 9, true, solved_lines)
   if is_solved then
-    vim.api.nvim_buf_set_lines(opts.bufnr, 10, -1, true, {" ", "󱜙 Sudoku solved!"})
+    vim.api.nvim_buf_set_lines(bufnr, 10, -1, true, {" ", "󱜙 Sudoku solved!"})
   else
-    vim.api.nvim_buf_set_lines(opts.bufnr, 10, -1, true, {" ", "😥 No solution found!"})
+    vim.api.nvim_buf_set_lines(bufnr, 10, -1, true, {" ", "😥 No solution found!"})
   end
 end
 
